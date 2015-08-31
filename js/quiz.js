@@ -3,7 +3,9 @@ var quiz = new function(){
 	this.allQuestions = [{question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron",
  "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer:0},
  {question: "Who is buried in Grant's Tomb?", choices: ["George Washington",
- "Ulysses S. Grant", "Thomas Jefferson", "Nobody; it's an above ground mausoleum"], correctAnswer:3}];
+ "Ulysses S. Grant", "Thomas Jefferson", "Nobody; it's an above ground mausoleum"], correctAnswer:3},
+ {question: "Is this quiz bogus?", choices: ["true",
+ "false"], correctAnswer:1}];
  	this.answerSheet = this.allQuestions.map(function(){return -1;});
 	var iterator = 0;
 	this.getIterator = function(){return iterator;};
@@ -38,7 +40,7 @@ var quiz = new function(){
 		//get the sum of the correct answers
 		var total = sum.reduce(function(x,y){return x + y;});
 		//return raw score for the quiz
-		return total / this.allQuestions.length;
+		return Math.floor(100 * (total / this.allQuestions.length));
 	}
 
 };
@@ -111,12 +113,18 @@ EventUtil.addHandler(next_button,"click",function(event){
 
 			quiz.answerQuestion(getAnswersFromRadioButtons());
 			removeQuestion(quiz_container.lastChild);
+			insertQuestion(quiz_container);
 			if(quiz.getIterator() < quiz.allQuestions.length){
-				insertQuestion(quiz_container);
 				drawQuestion(quiz_container.lastChild,quiz.getQuestion());
 			}else{
+				//score the quiz
+				var score = quiz.scoreQuiz();
 				//use removeQuestion function to remove button
 				removeQuestion(next_button.parentNode);
-				alert(quiz.scoreQuiz());
+				//insert paragraph to display score
+				var scoreDisp = document.createElement("p");
+				var scoreDispTxt = document.createTextNode("Your score is " + score);
+				scoreDisp.appendChild(scoreDispTxt);
+				quiz_container.lastChild.appendChild(scoreDisp);
 			}
 });
