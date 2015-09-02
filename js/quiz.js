@@ -1,5 +1,5 @@
 //Data Model for the quiz
-var quiz = new function(){
+var Quiz = new function(){
 	this.allQuestions = [{question: "Who is Prime Minister of the United Kingdom?", choices: ["David Cameron",
  "Gordon Brown", "Winston Churchill", "Tony Blair"], correctAnswer:0},
  {question: "Who is buried in Grant's Tomb?", choices: ["George Washington",
@@ -106,19 +106,19 @@ onclick->if iterator less than questions, replace the old question with the new
 
 EventUtil.addHandler(window,"load",function(event){
 	insertQuestion(quiz_container);
-	drawQuestion(quiz_container.lastChild,quiz.getQuestion());
+	drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
 });
 
 EventUtil.addHandler(next_button,"click",function(event){
 
-			quiz.answerQuestion(getAnswersFromRadioButtons());
+			Quiz.answerQuestion(getAnswersFromRadioButtons());
 			removeQuestion(quiz_container.lastChild);
 			insertQuestion(quiz_container);
-			if(quiz.getIterator() < quiz.allQuestions.length){
-				drawQuestion(quiz_container.lastChild,quiz.getQuestion());
+			if(Quiz.getIterator() < Quiz.allQuestions.length){
+				drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
 			}else{
 				//score the quiz
-				var score = quiz.scoreQuiz();
+				var score = Quiz.scoreQuiz();
 				//use removeQuestion function to remove button
 				removeQuestion(next_button.parentNode);
 				//insert paragraph to display score
