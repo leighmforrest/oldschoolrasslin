@@ -40,7 +40,7 @@ var quiz = new function(){
 		//get the sum of the correct answers
 		var total = sum.reduce(function(x,y){return x + y;});
 		//return raw score for the quiz
-		return Math.floor(100 * (total / this.allQuestions.length));
+		return (100 * (total / this.allQuestions.length)).toFixed(2);
 	}
 
 };
