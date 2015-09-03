@@ -1,16 +1,17 @@
-//Global variables
-//quiz_container-> contains the quiz element.
-//next_button-> contains the button
 var quiz_container = document.getElementById('quiz_container');
 var next_button = document.getElementById("next");
-
-
-//Replace old 'quiz' element and replace it with an empty one
-//quiz_container is presumed to exist.
-function replaceQuestion(){
+//Remove the quiz from the quiz_container
+//quiz: Reference to the node containing the question
+function removeQuestion(quiz){
+	var removeEl = quiz;
+	var parentEl = removeEl.parentNode;
+	parentEl.removeChild(removeEl);
+}
+//inserts new question div in quiz_container
+function insertQuestion(quiz){
 	var newEl = document.createElement("div");
 	newEl.setAttribute('id','quiz');
-	quiz_container.replaceChild(newEl,quiz_container.lastChild);
+	quiz.appendChild(newEl);
 }
 //Draws a quesion onto a div
 //quiz: div element containing the question
@@ -57,22 +58,23 @@ onclick->if iterator less than questions, replace the old question with the new
 */
 
 EventUtil.addHandler(window,"load",function(event){
-	
-	replaceQuestion();
-	drawQuestion(quiz_container.firstChild,quiz.getQuestion());
+	insertQuestion(quiz_container);
+	drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
 });
 
+//The next_button event handler
 EventUtil.addHandler(next_button,"click",function(event){
 
-			quiz.answerQuestion(getAnswersFromRadioButtons());
-			replaceQuestion();
-			if(quiz.getIterator() < quiz.allQuestions.length){
-				drawQuestion(quiz_container.lastChild,quiz.getQuestion());
+			Quiz.answerQuestion(getAnswersFromRadioButtons());
+			removeQuestion(quiz_container.lastChild);
+			insertQuestion(quiz_container);
+			if(Quiz.getIterator() < Quiz.allQuestions.length){
+				drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
 			}else{
 				//score the quiz
-				var score = quiz.scoreQuiz();
-				//use replacequestion
-				replaceQuestion(next_button.parentNode);
+				var score = Quiz.scoreQuiz();
+				//use removeQuestion function to remove button
+				removeQuestion(next_button.parentNode);
 				//insert paragraph to display score
 				var scoreDisp = document.createElement("p");
 				var scoreDispTxt = document.createTextNode("Your score is " + score);
