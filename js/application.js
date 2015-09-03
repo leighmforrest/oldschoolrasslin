@@ -2,8 +2,8 @@ var quiz_container = document.getElementById('quiz_container');
 var next_button = document.getElementById("next");
 //Remove the quiz from the quiz_container
 //quiz: Reference to the node containing the question
-function removeQuestion(quiz){
-	var removeEl = quiz;
+function removeElement(node){
+	var removeEl = node;
 	var parentEl = removeEl.parentNode;
 	parentEl.removeChild(removeEl);
 }
@@ -12,6 +12,16 @@ function insertQuestion(quiz){
 	var newEl = document.createElement("div");
 	newEl.setAttribute('id','quiz');
 	quiz.appendChild(newEl);
+}
+
+//replaces an old node with a new one
+function replaceQuestion(){
+	//create a new node
+	var newNode = document.createElement("div");
+	newNode.setAttribute('id','quiz');
+	//get the old node. Assumes quiz_container is not null
+	var oldNode = quiz_container.lastChild;
+	quiz_container.replaceChild(newNode,oldNode);
 }
 //Draws a quesion onto a div
 //quiz: div element containing the question
@@ -58,7 +68,8 @@ onclick->if iterator less than questions, replace the old question with the new
 */
 
 EventUtil.addHandler(window,"load",function(event){
-	insertQuestion(quiz_container);
+	removeElement(quiz_container.lastChild);//remove the fallback <p> element
+	replaceQuestion();
 	drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
 });
 
@@ -66,15 +77,14 @@ EventUtil.addHandler(window,"load",function(event){
 EventUtil.addHandler(next_button,"click",function(event){
 
 			Quiz.answerQuestion(getAnswersFromRadioButtons());
-			removeQuestion(quiz_container.lastChild);
-			insertQuestion(quiz_container);
+			replaceQuestion();//replace old question div with a blank one
 			if(Quiz.getIterator() < Quiz.allQuestions.length){
 				drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
 			}else{
 				//score the quiz
 				var score = Quiz.scoreQuiz();
 				//use removeQuestion function to remove button
-				removeQuestion(next_button.parentNode);
+				removeElement(next_button.parentNode);
 				//insert paragraph to display score
 				var scoreDisp = document.createElement("p");
 				var scoreDispTxt = document.createTextNode("Your score is " + score);

@@ -22,12 +22,10 @@ var Quiz = new function(){
 			var i = iterator, correctAnswer = this.allQuestions[i].correctAnswer;
 			if(answer === correctAnswer){
 				this.answerSheet[i] = true;
-				console.log("vrai");
 			} else if(answer === -1 ){//do nothing
 
 			}else{ 
 				this.answerSheet[i] = false;
-				console.log("faux");
 			}
 			iterator += 1;
 		}
