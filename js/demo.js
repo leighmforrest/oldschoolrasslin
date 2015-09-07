@@ -64,16 +64,3 @@ var EventUtil = {
 		}
 	}
 };
-
-//Code Area
-function getSelectedOptions(selectbox){
-	var result = new Array();
-	var option = null;
-	for(var i=0, len= selectbox.options.length; i < len; i++){
-		option = selectbox.options[i];
-		if(option.selected){
-			result.push(option);
-		}
-	}
-	return result;
-}

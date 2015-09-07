@@ -15,6 +15,7 @@ function insertQuestion(quiz){
 }
 
 //replaces an old node with a new one
+//assumes quiz_container exists
 function replaceQuestion(){
 	//create a new node
 	var newNode = document.createElement("div");
@@ -38,7 +39,7 @@ function drawQuestion(quiz,question){
 		var answerSel = document.createElement("input");
 		answerSel.setAttribute('type', 'radio');
 		answerSel.setAttribute('name', 'answer');
-		answerSel.setAttribute('value', val);
+		answerSel.setAttribute('value', i);
 		//add the label
 		var label= document.createElement("label");
 		label.innerHTML = val;
@@ -78,7 +79,8 @@ EventUtil.addHandler(next_button,"click",function(event){
 
 			Quiz.answerQuestion(getAnswersFromRadioButtons());
 			replaceQuestion();//replace old question div with a blank one
-			if(Quiz.getIterator() < Quiz.allQuestions.length){
+			//if(Quiz.getIterator() < Quiz.allQuestions.length){
+			if(Quiz.moreQuestions()){
 				drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
 			}else{
 				//score the quiz

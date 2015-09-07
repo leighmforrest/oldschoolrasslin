@@ -8,7 +8,8 @@ var Quiz = new function(){
  "false"], correctAnswer:1}];
  	this.answerSheet = this.allQuestions.map(function(){return -1;});
 	var iterator = 0;
-	this.getIterator = function(){return iterator;};
+	//returns the iterators value
+	this.getIterator = function(){return function(){return iterator};};
 	//flag for more questions
 	this.moreQuestions = function(){return iterator < this.allQuestions.length;};
 	//get the current question
@@ -16,9 +17,13 @@ var Quiz = new function(){
 		var q = this.allQuestions[iterator];
 		return {question: q.question, choices: q.choices};
 	};
+	//function to advance the iterator one
+	this.advanceIterator = function(){iterator += 1};
+	//function to have iterator go back one
+	this.decrementIterator = function(){iterator -= 1;};
 	// answer the question and advance iterator
 	this.answerQuestion= function(answer){
-		if(iterator < this.allQuestions.length){
+		if(this.moreQuestions()){
 			var i = iterator, correctAnswer = this.allQuestions[i].correctAnswer;
 			if(answer === correctAnswer){
 				this.answerSheet[i] = true;
@@ -27,7 +32,7 @@ var Quiz = new function(){
 			}else{ 
 				this.answerSheet[i] = false;
 			}
-			iterator += 1;
+			this.advanceIterator();
 		}
 	};
 
