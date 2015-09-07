@@ -1,0 +1,48 @@
+body {
+  line-height: 1.5;
+  color: rgb(4,216,162);
+
+  background: url("../images/home.gif") no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+.container {
+  width: 500px;
+  margin: 100px;
+  margin-left: 40px;
+  background: rgba(237,29,29,.85);
+  color: rgba(199,233,218,.85);
+  padding: 15px;
+  border: 15px;
+  border-radius: 10px;
+  font-family: 'Montserrat', sans-serif;
+  /*color: rgb(60,7,7);*/
+}
+
+h1, footer {
+  font-family: 'Bree Serif', serif;
+  background: rgba(237,29,29,.85);
+  padding: 15px;
+  margin-left: 15px;
+  margin-top: 20px;
+  border: 10px;
+  border-radius: 5px;
+}
+
+h1{
+  width: 350px;
+}
+
+footer{
+  display: none;
+  width: 500px;
+}
+
+footer a{
+
+  text-decoration: none;
+}
