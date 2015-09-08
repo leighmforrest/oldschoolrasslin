@@ -76,8 +76,11 @@ EventUtil.addHandler(window,"load",function(event){
 
 //The next_button event handler
 EventUtil.addHandler(next_button,"click",function(event){
-
-			Quiz.answerQuestion(getAnswersFromRadioButtons());
+			var answer = getAnswersFromRadioButtons();
+			if(answer == -1){
+				alert("You cannot proceed unless the question is answered.");
+			}else{
+			Quiz.answerQuestion(answer);
 			replaceQuestion();//replace old question div with a blank one
 			//if(Quiz.getIterator() < Quiz.allQuestions.length){
 			if(Quiz.moreQuestions()){
@@ -93,4 +96,5 @@ EventUtil.addHandler(next_button,"click",function(event){
 				scoreDisp.appendChild(scoreDispTxt);
 				quiz_container.lastChild.appendChild(scoreDisp);
 			}
+		}
 });

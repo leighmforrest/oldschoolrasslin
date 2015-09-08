@@ -18,9 +18,9 @@ var Quiz = new function(){
 		return {question: q.question, choices: q.choices};
 	};
 	//function to advance the iterator one
-	this.advanceIterator = function(){iterator += 1};
+	this.advanceIterator = function(){if(this.moreQuestions())iterator += 1};
 	//function to have iterator go back one
-	this.decrementIterator = function(){iterator -= 1;};
+	this.decrementIterator = function(){if(iterator > 0)iterator -= 1;};
 	// answer the question and advance iterator
 	this.answerQuestion= function(answer){
 		if(this.moreQuestions()){
