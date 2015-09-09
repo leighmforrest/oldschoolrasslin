@@ -23,23 +23,23 @@ var Quiz = new function(){
 	this.decrementIterator = function(){if(iterator > 0)iterator -= 1;};
 	// answer the question and advance iterator
 	this.answerQuestion= function(answer){
-		if(this.moreQuestions()){
-			var i = iterator, correctAnswer = this.allQuestions[i].correctAnswer;
-			if(answer === correctAnswer){
-				this.answerSheet[i] = true;
-			} else if(answer === -1 ){//do nothing
-
-			}else{ 
-				this.answerSheet[i] = false;
-			}
+			var i = iterator;
+			this.answerSheet[i] = answer;
 			this.advanceIterator();
-		}
+		
 	};
-
+	//Compare correct answers to answer sheet
+	this.correctAnswers = function(){
+		var x = [];
+		for(var i=0; i < this.allQuestions.length; i++){
+			x.push(this.allQuestions[i].correctAnswer === this.answerSheet[i]);
+		}
+		return x;
+	}
 	//Score the answers to the quiz
 	this.scoreQuiz = function(){
 		//remove the -1 values
-		var sum = this.answerSheet.filter(function(x ){return x !== -1;});
+		var sum = this.correctAnswers().filter(function(x ){return x !== -1;});
 		//get the sum of the correct answers
 		var total = sum.reduce(function(x,y){return x + y;});
 		//return raw score for the quiz
