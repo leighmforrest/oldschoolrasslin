@@ -73,6 +73,8 @@ function showButton(){
 	}else{
 		back_button.className = 'hideButton';
 	}
+
+	next_button.className = '';
 }
 
 /*
@@ -86,6 +88,7 @@ EventUtil.addHandler(window,"load",function(event){
 	removeElement(quiz_container.lastChild);//remove the fallback <p> element
 	replaceQuestion();
 	drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
+	showButton(); 
 });
 
 //The next_button event handler
@@ -103,7 +106,7 @@ EventUtil.addHandler(next_button,"click",function(event){
 			}else{
 				//score the quiz
 				var score = Quiz.scoreQuiz();
-				//use removeQuestion function to remove button
+				//use removeQuestion function to remove buttons
 				removeElement(next_button.parentNode);
 				//insert paragraph to display score
 				var scoreDisp = document.createElement("p");

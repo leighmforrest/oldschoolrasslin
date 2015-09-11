@@ -47,6 +47,6 @@ footer a{
   text-decoration: none;
 }
 
-button#back.hideButton {
+button#back.hideButton, button#next.hideButton {
     visibility: hidden;
 }
