@@ -116,7 +116,16 @@ EventUtil.addHandler(next_button,"click",function(event){
 
 //The back_button event handler
 EventUtil.addHandler(back_button,"click",function(event){
-	if(Quiz.getIterator()() > -1 ){
+	var iterator = Quiz.getIterator()();
+	if(iterator > -1 ){
+		//if it is the last question, remember the button
+		//Score the answer before decrementing iterator
+		if(iterator == (Quiz.allQuestions.length-1))
+		{
+			var answer = getAnswersFromRadioButtons();
+			Quiz.answerSheet[iterator] = answer;
+
+		}
 		//decrement iterator
 		Quiz.decrementIterator();
 		//draw question
