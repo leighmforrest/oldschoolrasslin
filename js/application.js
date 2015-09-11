@@ -1,5 +1,6 @@
 var quiz_container = document.getElementById('quiz_container');
 var next_button = document.getElementById("next");
+var back_button =document.getElementById("back");
 //Remove the quiz from the quiz_container
 //quiz: Reference to the node containing the question
 function removeElement(node){
@@ -40,6 +41,10 @@ function drawQuestion(quiz,question){
 		answerSel.setAttribute('type', 'radio');
 		answerSel.setAttribute('name', 'answer');
 		answerSel.setAttribute('value', i);
+		if(Quiz.answerSheet[Quiz.getIterator()()] == i){
+			answerSel.setAttribute('checked','true');
+			console.log("Item " + i + " has been checked.")
+		}//end if
 		//add the label
 		var label= document.createElement("label");
 		label.innerHTML = val;
@@ -59,6 +64,15 @@ function getAnswersFromRadioButtons(){
 		else continue;
 	}
 	return -1;
+}
+
+//Shows back button if iterator is over 0; else hide button
+function showButton(){
+	if(Quiz.getIterator()() > 0){
+		back_button.className = '';
+	}else{
+		back_button.className = 'hideButton';
+	}
 }
 
 /*
@@ -85,6 +99,7 @@ EventUtil.addHandler(next_button,"click",function(event){
 			//if(Quiz.getIterator() < Quiz.allQuestions.length){
 			if(Quiz.moreQuestions()){
 				drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
+				showButton();
 			}else{
 				//score the quiz
 				var score = Quiz.scoreQuiz();
@@ -97,4 +112,16 @@ EventUtil.addHandler(next_button,"click",function(event){
 				quiz_container.lastChild.appendChild(scoreDisp);
 			}
 		}
+});
+
+//The back_button event handler
+EventUtil.addHandler(back_button,"click",function(event){
+	if(Quiz.getIterator()() > -1 ){
+		//decrement iterator
+		Quiz.decrementIterator();
+		//draw question
+		replaceQuestion();
+		drawQuestion(quiz_container.lastChild,Quiz.getQuestion());
+		showButton();
+	}
 });
