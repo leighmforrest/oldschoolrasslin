@@ -109,7 +109,7 @@ function drawQuestion(quiz,question){
 			//draw question
 			replaceQuestion();
 			drawQuestion($('#quiz'),Quiz.getQuestion());
-			
+			//show the buttons
 			showButtons();
 		}
 	});
