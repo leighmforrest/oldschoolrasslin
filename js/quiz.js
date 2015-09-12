@@ -1,12 +1,11 @@
-/*
+
 var allQuestions = [{"question": "Who is Prime Minister of the United Kingdom?", "choices": ["David Cameron",
  "Gordon Brown", "Winston Churchill", "Tony Blair"], "correctAnswer":0},
  {"question": "Who is buried in Grant's Tomb?", "choices": ["George Washington",
  "Ulysses S. Grant", "Thomas Jefferson", "Nobody; it's an above ground mausoleum"], "correctAnswer":3},
  {"question": "Is this quiz bogus?", "choices": ["true",
  "false"], "correctAnswer":1}];
-*/
-allQuestions = jQuery.getJSON('../data/data.json');
+
 //Data Model for the quiz
 var Quiz = new function(){
 	this.allQuestions = allQuestions;
