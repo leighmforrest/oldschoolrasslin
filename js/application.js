@@ -51,7 +51,7 @@ function drawQuestion(quiz,question){
 
 	//replace old quiz div with a fresh one
 	function replaceQuestion(){
-		quiz_container.find('#quiz').remove();
+		quiz_container.find('#quiz').fadeOut(500).remove();
   		quiz_container.append('<div id="quiz"></div>');
 	}
 
